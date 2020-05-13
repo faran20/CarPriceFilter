@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Table</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/util.css" %}"/>
+</head>
+<body>
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <label for="id_price">Filter Cars with Price</label>
+        <input type="number" id="id_price" name="price" style="">
+        <button type="submit">Find</button>
+    </form>
+{% endblock %}
+
+<h4>100 Cars Data</h4>
+
+<div class="limiter">
+    <div class="container-table100">
+        <div class="wrap-table100">
+            <div class="table100 ver1 m-b-110">
+                <div class="table100-head">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th style="width: 15%">Brand</th>
+                            <th style="width: 13%">Condition</th>
+                            <th style="width: 10%">Fuel</th>
+                            <th style="width: 10%">KMs Driven</th>
+                            <th style="width: 13%">Model</th>
+                            <th style="width: 10%">Price</th>
+                            <th style="width: 12%">Registered City</th>
+                            <th style="width: 12%">Transaction Type</th>
+                            <th style="width: 5%">Year</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="table100-body js-pscroll" style="padding-top:20px">
+                    <table>
+                        <tbody>
+                        {% for obj in object %}
+                            <tr>
+                                <td style="width: 15%">{{ obj.brand }}</td>
+                                <td style="width: 13%">{{ obj.condition }}</td>
+                                <td style="width: 10%">{{ obj.fuel }}</td>
+                                <td style="width: 10%">{{ obj.kms_driven }}</td>
+                                <td style="width: 13%">{{ obj.model }}</td>
+                                <td style="width: 11%">{{ obj.price }}</td>
+                                <td style="width: 12%">{{ obj.registered_city }}</td>
+                                <td style="width: 12%">{{ obj.transaction_type }}</td>
+                                <td style="width: 5%">{{ obj.year }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.js-pscroll').each(function () {
+        var ps = new PerfectScrollbar(this);
+        $(window).on('resize', function () {
+            ps.update();
+        })
+    });
+
+
+</script>
+</body>
+</html>
